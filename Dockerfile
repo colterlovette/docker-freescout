@@ -50,9 +50,18 @@ RUN source /assets/functions/00-container && \
     mkdir -p vendor/natxet/cssmin/src && \
     mkdir -p vendor/rap2hpoutre/laravel-log-viewer/src/controllers && \
     if [ -d "/build-assets/src" ] ; then cp -Rp /build-assets/src/* /assets/install ; fi; \
-    if [ -d "/build-assets/scripts" ] ; then for script in /build-assets/scripts/*.sh; do echo "** Applying $script"; bash $script; done && \ ; fi ; \
+    if [ -d "/build-assets/scripts" ] ; then for script in /build-assets/scripts/*.sh; do echo "** Applying $script"; bash $script; done ; fi; \
     if [ -d "/build-assets/custom-scripts" ] ; then mkdir -p /assets/custom-scripts ; cp -Rp /build-assets/custom-scripts/* /assets/custom-scripts ; fi; \
     composer install --ignore-platform-reqs && \
+    \
+    # --- Added: Install S3 Flysystem Adapter for Laravel ---
+    composer require league/flysystem-aws-s3-v3 && \
+    \
+    # --- Clear and rebuild Laravel cache and storage links ---
+    php artisan config:clear && \
+    php artisan cache:clear && \
+    php artisan storage:link && \
+    \
     php artisan freescout:build && \
     rm -rf \
             /assets/install/.env.example \
@@ -65,4 +74,6 @@ RUN source /assets/functions/00-container && \
            /root/.composer \
            /var/tmp/*
 
+# Default startup
 COPY install /
+CMD ["/init"]
