@@ -7,7 +7,7 @@ LABEL maintainer="Dave Conroy (github.com/tiredofit)"
 ARG FREESCOUT_VERSION
 
 ENV FREESCOUT_VERSION=${FREESCOUT_VERSION:-"1.8.194"} \
-    FREESCOUT_REPO_URL="https://github.com/colterlovette/freescout/" \
+    FREESCOUT_REPO_URL="https://github.com/colterlovette/freescout" \
     NGINX_WEBROOT=/www/html \
     NGINX_SITE_ENABLED=freescout \
     PHP_CREATE_SAMPLE_PHP=FALSE \
