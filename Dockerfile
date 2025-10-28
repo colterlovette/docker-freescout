@@ -55,7 +55,7 @@ RUN source /assets/functions/00-container && \
     composer install --ignore-platform-reqs && \
     \
     # --- Added: Install S3 Flysystem Adapter for Laravel ---
-    composer require league/flysystem-aws-s3-v3 && \
+    composer require league/flysystem-aws-s3-v1:^1.0 && \
     \
     # --- Clear and rebuild Laravel cache and storage links ---
     php artisan config:clear && \
